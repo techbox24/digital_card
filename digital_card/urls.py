@@ -19,7 +19,6 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-    path('score_api' ,include('score_api.urls'))
+    path('score_api/', include('score_api.urls')),
+    path('highscore_api/', include('highscore_api.urls'))
 ]
-
-

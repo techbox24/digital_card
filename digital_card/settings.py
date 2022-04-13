@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'api',
-    'score_api'
+    'score_api',
+    'highscore_api'
 ]
 
 MIDDLEWARE = [
