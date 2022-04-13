@@ -25,5 +25,5 @@ def UpdateScore(request):
         user.papertoss = int(user.papertoss) + int(data['score'])
         user.save()
         serializer = ScoreSerializer(user, many=False)
-        return Response(serializer.user)
+        return Response(serializer.data)
     return Response({"Response": "Token id is Wrong"})
