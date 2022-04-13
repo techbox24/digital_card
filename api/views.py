@@ -1,16 +1,21 @@
-from django.http import HttpResponse, JsonResponse
+from distutils.command.config import config
 from django.shortcuts import redirect
 from .models import User
 import requests
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import UserSerializer
-
+from dotenv import dotenv_values
+from django.conf import settings
 # Create your views here.
-auth_url = r"https://discord.com/api/oauth2/authorize?client_id=962670671572381737&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fapi%2Flogin%2Fredirect%2F&response_type=code&scope=identify%20email"
+
+env_path = str(settings.BASE_DIR) + r"/.env"
+config = dotenv_values(env_path)
+auth_url = config["auth_url"]
 
 def login(request):
     return redirect(auth_url)
+
 @api_view(["GET"])
 def login_redirect(request):
     code = request.GET.get('code')
@@ -28,19 +33,16 @@ def login_redirect(request):
             points_spent = 0
         )
         new_user.save()
-        print(new_user)
         new_user_json = UserSerializer(new_user, many=False).data
-        return JsonResponse(new_user_json)
+        return Response(new_user_json)
     user = user.first()
-    print(user)
-    print(user.discord_id)
     user_json = UserSerializer(user, many=False).data
-    print(user_json)
-    return Response(user.discord_id)
+    return Response(user_json)
 
 
 @api_view(["POST"])
 def user_details(request):
+
     id = request.data["discord_id"]
     user = User.objects.get(discord_id=id)
     user_data = UserSerializer(user, many=False)
@@ -49,8 +51,8 @@ def user_details(request):
 
 def exchange_code(code):
     data = {
-        "client_id": r"962670671572381737",
-        "client_secret": r"OJTNkk3dyGo1ylhn_IGkKYLQVifqiFFA",
+        "client_id": config["client_id"],
+        "client_secret": config["client_secret"],
         'grant_type': 'authorization_code',
         'code': code,
         'redirect_uri': r'http://localhost:8000/api/login/redirect/',
