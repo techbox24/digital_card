@@ -7,5 +7,5 @@ urlpatterns = [
     path('home/', user_details, name="user_details"),
     path('score/get', GetScore, name='get_score'),
     path('score/put', UpdateScore, name='Update_Score'),
-
+    path('highscore/', GetData, name='HighScore')
 ]

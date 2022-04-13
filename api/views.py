@@ -89,7 +89,7 @@ def GetScore(request):
 def UpdateScore(request):
     data = request.data
     if os.getenv('token') == data['token']:
-        if data["game"] == "papertoss" :
+        if data["game"] == "papertoss":
             user = User.objects.get(discord_id=data['discord_id'])
             user.papertoss = int(user.papertoss) + int(data['score'])
             user.save()
@@ -97,11 +97,11 @@ def UpdateScore(request):
             return Response(serializer.data)
         elif data["game"] == "wordle":
             user = User.objects.get(discord_id=data['discord_id'])
-            user.papertoss = int(user.papertoss) + int(data['score'])
+            user.wordle = int(user.wordle) + int(data['score'])
             user.save()
             serializer = ScoreSerializer(user, many=False)
             return Response(serializer.data)
-        else :
+        else:
             return Response({"Response": "User doesn't exist"})
     return Response({"Response": "Token is Wrong"})
 
