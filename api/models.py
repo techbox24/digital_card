@@ -8,3 +8,7 @@ class User(models.Model):
     wordle = models.IntegerField(default=0)
     papertoss = models.IntegerField(default=0)
     total_score = models.IntegerField(default=0)
+
+    def save(self, args, **kwargs):
+        self.total_score = self.wordle+self.papertoss
+        super(User, self).save(args, **kwargs)
