@@ -1,10 +1,13 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+import os
 
-# Create your views here.
+from dotenv import load_dotenv
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 from api.models import User
 from api.serializers import ScoreSerializer
+
+load_dotenv("E:\PROJECTS\digital_card_main\.env")
 
 
 @api_view(['GET'])
@@ -17,9 +20,10 @@ def GetData(request):
 @api_view(['PUT'])
 def UpdateScore(request):
     data = request.data
-    print(User.objects.get(discord_id=data['discord_id']))
-    user = User.objects.get(discord_id=data['discord_id'])
-    user.papertoss = int(user.papertoss) + int(data['score'])
-    user.save()
-    serializer = ScoreSerializer(user, many=False)
-    return Response(serializer.user)
+    if os.getenv('token') == data['token']:
+        user = User.objects.get(discord_id=data['discord_id'])
+        user.papertoss = int(user.papertoss) + int(data['score'])
+        user.save()
+        serializer = ScoreSerializer(user, many=False)
+        return Response(serializer.user)
+    return Response({"Response": "Token id is Wrong"})
