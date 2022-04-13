@@ -21,10 +21,11 @@ from django.db import models
 class User(models.Model):
     id = models.BigIntegerField(primary_key=True)
     discord_id = models.CharField(max_length=120)
-    avatar = models.CharField(max_length=100)
+    avatar = models.CharField(max_length=100, default="")
     email = models.EmailField()
     name = models.CharField(max_length=100, default="")
     wordle = models.IntegerField(default=0)
     papertoss = models.IntegerField(default=0)
     points_spent = models.IntegerField(default=0)
     last_login = models.DateTimeField(null=True)
+    total_score = models.IntegerField(default=0)

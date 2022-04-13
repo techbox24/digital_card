@@ -3,7 +3,7 @@ from rest_framework import serializers
 from api.models import User
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['discord_id', 'avatar', 'email', 'name', 'wordle', 'papertoss', 'points_spent']
@@ -33,3 +33,5 @@ class ScoreSerializer(serializers.ModelSerializer):
         instance.points_spent = validated_data.get('points_spent', instance.points_spent)
         instance.save()
         return instance
+
+
