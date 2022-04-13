@@ -7,9 +7,18 @@ from api.models import User
 from api.serializers import ScoreSerializer
 
 
-@api_view(['GET'])
-def GetData(request):
-    a = User.objects.order_by('-papertoss')
+def creating_obj(game):
+    a = User.objects.order_by(f'-{game}')
     serializer = ScoreSerializer(a, many=True)
-    print(serializer.data)
-    return Response(serializer.data)
+    return serializer.data
+
+
+@api_view(['POST'])
+def GetData(request):
+    data = request.data
+    if data['game'] == 'papertoss':
+        board = creating_obj('papertoss')
+        return Response(board)
+    elif data['game'] == 'total':
+        board = creating_obj('total_score')
+        return board
