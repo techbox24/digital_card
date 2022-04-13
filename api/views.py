@@ -33,10 +33,12 @@ def login_redirect(request):
         )
         new_user.save()
         new_user_json = UserSerializer(new_user, many=False).data
-        return Response(new_user_json)
+        rank = User.objects.filter(total_score__gte=new_user.total_score).count()
+        return Response({"user": new_user_json, "rank": rank})
     user = user.first()
     user_json = UserSerializer(user, many=False).data
-    return Response(user_json)
+    rank = User.objects.filter(total_score__gte=user.total_score).count()
+    return Response({"user": user_json, "rank": rank})
 
 
 @api_view(["POST"])
