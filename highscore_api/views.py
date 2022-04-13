@@ -22,4 +22,4 @@ def GetData(request):
     elif data['game'] == 'total':
         board = creating_obj('total_score')
         return Response(board)
-    return Response({"Response" : "Wrong game name!!!!!"})
+    return Response({"Response": "Wrong game name!!!!!"})
