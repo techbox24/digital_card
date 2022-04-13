@@ -8,6 +8,7 @@ class UserSerializer(serializers.Serializer):
         model = User
         fields = ['discord_id', 'avatar', 'email', 'name', 'wordle', 'papertoss', 'points_spent']
 
+
 class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -24,7 +25,7 @@ class ScoreSerializer(serializers.ModelSerializer):
         Update and return an existing `Data` instance, given the validated data.
         """
         instance.discord_id = validated_data.get('discord_id', instance.discord_id)
-        instance.avatar = validated_data.get('avatar' , instance.avatar)
+        instance.avatar = validated_data.get('avatar', instance.avatar)
         instance.email = validated_data.get('email', instance.email)
         instance.name = validated_data.get('name', instance.name)
         instance.wordle = validated_data.get('wordle', instance.wordle)
