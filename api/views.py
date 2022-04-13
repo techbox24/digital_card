@@ -27,10 +27,9 @@ def login_redirect(request):
             discord_id = f"{credentials['username']}#{credentials['discriminator']}",
             avatar = credentials['avatar'],
             email = credentials['email'],
-            name = "",
             wordle = 0,
             papertoss = 0,
-            points_spent = 0
+            total_score = 0
         )
         new_user.save()
         new_user_json = UserSerializer(new_user, many=False).data

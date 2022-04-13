@@ -5,5 +5,5 @@ from api.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'discord_id', 'avatar', 'email',  'name', 'wordle', 'papertoss', 'points_spent']
+        fields = ['id', 'discord_id', 'avatar', 'email', 'wordle', 'papertoss', 'total_score']
     
